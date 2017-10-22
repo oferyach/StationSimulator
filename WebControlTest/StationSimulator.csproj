@@ -69,6 +69,9 @@
   <ItemGroup>
     <Compile Include="Client.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="CPass.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Logger.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
@@ -102,6 +105,33 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Debug\App.log" />
+    <None Include="Debug\digital-7 %28italic%29.ttf" />
+    <None Include="Debug\digital-7.ttf" />
+    <None Include="Debug\ForeFleetSimulator.vshost.exe.config" />
+    <None Include="Debug\ForeFuelSimulator.exe.config" />
+    <None Include="Debug\ForeFuelSimulator.vshost.exe.config" />
+    <None Include="Debug\ForeFuelSimulator.vshost.exe.manifest" />
+    <None Include="Debug\ForeFuleSimulator.vshost.exe.config" />
+    <None Include="Debug\LiquidCrystal-Normal.otf" />
+    <None Include="Debug\MSR.log" />
+    <None Include="Debug\OpenSans-Bold.ttf" />
+    <None Include="Debug\OpenSans-BoldItalic.ttf" />
+    <None Include="Debug\OpenSans-CondBold.ttf" />
+    <None Include="Debug\OpenSans-CondLight.ttf" />
+    <None Include="Debug\OpenSans-CondLightItalic.ttf" />
+    <None Include="Debug\OpenSans-ExtraBold.ttf" />
+    <None Include="Debug\OpenSans-ExtraBoldItalic.ttf" />
+    <None Include="Debug\OpenSans-Italic.ttf" />
+    <None Include="Debug\OpenSans-Light.ttf" />
+    <None Include="Debug\OpenSans-LightItalic.ttf" />
+    <None Include="Debug\OpenSans-Regular.ttf" />
+    <None Include="Debug\OpenSans-Semibold.ttf" />
+    <None Include="Debug\OpenSans-SemiboldItalic.ttf" />
+    <None Include="Debug\VITComm.log" />
+    <None Include="Debug\WebControlTest.exe.config" />
+    <None Include="Debug\WebControlTest.vshost.exe.config" />
+    <None Include="Debug\WebControlTest.vshost.exe.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -135,6 +165,99 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Debug\0004.01.png" />
+    <Content Include="Debug\0005.37.png" />
+    <Content Include="Debug\1.23.png" />
+    <Content Include="Debug\1.25.png" />
+    <Content Include="Debug\1.png" />
+    <Content Include="Debug\2.png" />
+    <Content Include="Debug\3.png" />
+    <Content Include="Debug\34ABC56.png" />
+    <Content Include="Debug\4.png" />
+    <Content Include="Debug\5.png" />
+    <Content Include="Debug\App.html" />
+    <Content Include="Debug\Authorized.png" />
+    <Content Include="Debug\Authorizing 34ABC56 limit=0100 fuel.png" />
+    <Content Include="Debug\Authorizing_HO.png" />
+    <Content Include="Debug\BKG.png" />
+    <Content Include="Debug\Button1.png" />
+    <Content Include="Debug\Button2.png" />
+    <Content Include="Debug\Comm_Error.png" />
+    <Content Include="Debug\config.xml" />
+    <Content Include="Debug\Connected_WGT.png" />
+    <Content Include="Debug\DIESEL.png" />
+    <Content Include="Debug\Disconnected_WGT.png" />
+    <Content Include="Debug\Empty.png" />
+    <Content Include="Debug\ForeFuel.ico" />
+    <Content Include="Debug\ForeFuelSimulator.exe" />
+    <Content Include="Debug\ForeFuelSimulator.pdb" />
+    <Content Include="Debug\ForeFuelSimulator.vshost.exe" />
+    <Content Include="Debug\fuel_pump_down.mp3" />
+    <Content Include="Debug\fuel_pump_down.wav" />
+    <Content Include="Debug\fuel_pump_operating.mp3" />
+    <Content Include="Debug\fuel_pump_operating.wav" />
+    <Content Include="Debug\fuel_pump_operating_org.wav" />
+    <Content Include="Debug\fuel_pump_up.mp3" />
+    <Content Include="Debug\fuel_pump_up.wav" />
+    <Content Include="Debug\ID Pane.png" />
+    <Content Include="Debug\Identification.png" />
+    <Content Include="Debug\LIMITS copy.png" />
+    <Content Include="Debug\Limits Pane.png" />
+    <Content Include="Debug\Limits.png" />
+    <Content Include="Debug\ListBox.png" />
+    <Content Include="Debug\Log.png" />
+    <Content Include="Debug\LogEmpty.png" />
+    <Content Include="Debug\LogNozzUp.png" />
+    <Content Include="Debug\ltr.png" />
+    <Content Include="Debug\Not_Authorized.png" />
+    <Content Include="Debug\NozzDn.png" />
+    <Content Include="Debug\Nozzle Button1.png" />
+    <Content Include="Debug\Nozzle Button2.png" />
+    <Content Include="Debug\Nozzle handle is down.png" />
+    <Content Include="Debug\Nozzle handle is up.png" />
+    <Content Include="Debug\Nozzle removed - supended.png" />
+    <Content Include="Debug\NozzUp.png" />
+    <Content Include="Debug\phoneAuth.png" />
+    <Content Include="Debug\PicNozzDown.png" />
+    <Content Include="Debug\PLATE.png" />
+    <Content Include="Debug\Pump Pane.png" />
+    <Content Include="Debug\Pump.png" />
+    <Content Include="Debug\Pump1.png" />
+    <Content Include="Debug\Rectangle 1 copy 2.png" />
+    <Content Include="Debug\Rectangle 1 copy 3.png" />
+    <Content Include="Debug\Rectangle 1 copy.png" />
+    <Content Include="Debug\Rectangle 1.png" />
+    <Content Include="Debug\Rectangle 2 copy 2.png" />
+    <Content Include="Debug\Rectangle 2 copy 3.png" />
+    <Content Include="Debug\Rectangle 2 copy 4.png" />
+    <Content Include="Debug\Rectangle 2 copy.png" />
+    <Content Include="Debug\Rectangle 2.png" />
+    <Content Include="Debug\REGULAR.png" />
+    <Content Include="Debug\Resume fueling 34ABC56.png" />
+    <Content Include="Debug\Resume.png" />
+    <Content Include="Debug\Rounded Rectangle 1 copy.png" />
+    <Content Include="Debug\Rounded Rectangle 1.png" />
+    <Content Include="Debug\sale.png" />
+    <Content Include="Debug\Station1.png" />
+    <Content Include="Debug\Station1Un.png" />
+    <Content Include="Debug\Station2.png" />
+    <Content Include="Debug\Station2Un.png" />
+    <Content Include="Debug\Station3.png" />
+    <Content Include="Debug\Station3Un.png" />
+    <Content Include="Debug\Suspend.png" />
+    <Content Include="Debug\Token.txt" />
+    <Content Include="Debug\Vector Smart Object copy 3.png" />
+    <Content Include="Debug\Vector Smart Object copy 5.png" />
+    <Content Include="Debug\Vector Smart Object copy 6.png" />
+    <Content Include="Debug\Vector Smart Object copy 7.png" />
+    <Content Include="Debug\Vector Smart Object copy 8.png" />
+    <Content Include="Debug\Wash1.png" />
+    <Content Include="Debug\Wash2.png" />
+    <Content Include="Debug\WashAnimation.gif" />
+    <Content Include="Debug\WashHead.png" />
+    <Content Include="Debug\WebControlTest.exe" />
+    <Content Include="Debug\WebControlTest.pdb" />
+    <Content Include="Debug\WebControlTest.vshost.exe" />
     <Content Include="ForeFuel.ico" />
     <None Include="Service References\LoyaltyService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>

@@ -29,6 +29,9 @@ namespace ForeFuelSimulator.LoyaltyService {
         private double DiscountField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DiscountTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DriverNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -38,10 +41,16 @@ namespace ForeFuelSimulator.LoyaltyService {
         private double LimitField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LimitTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int[] ProductsCodeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ReferenceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool cPassRequiredField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -75,6 +84,19 @@ namespace ForeFuelSimulator.LoyaltyService {
                 if ((this.DiscountField.Equals(value) != true)) {
                     this.DiscountField = value;
                     this.RaisePropertyChanged("Discount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DiscountType {
+            get {
+                return this.DiscountTypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DiscountTypeField, value) != true)) {
+                    this.DiscountTypeField = value;
+                    this.RaisePropertyChanged("DiscountType");
                 }
             }
         }
@@ -119,6 +141,19 @@ namespace ForeFuelSimulator.LoyaltyService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LimitType {
+            get {
+                return this.LimitTypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LimitTypeField, value) != true)) {
+                    this.LimitTypeField = value;
+                    this.RaisePropertyChanged("LimitType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int[] ProductsCode {
             get {
                 return this.ProductsCodeField;
@@ -140,6 +175,19 @@ namespace ForeFuelSimulator.LoyaltyService {
                 if ((object.ReferenceEquals(this.ReferenceField, value) != true)) {
                     this.ReferenceField = value;
                     this.RaisePropertyChanged("Reference");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool cPassRequired {
+            get {
+                return this.cPassRequiredField;
+            }
+            set {
+                if ((this.cPassRequiredField.Equals(value) != true)) {
+                    this.cPassRequiredField = value;
+                    this.RaisePropertyChanged("cPassRequired");
                 }
             }
         }

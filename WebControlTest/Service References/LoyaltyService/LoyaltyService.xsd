@@ -5,11 +5,14 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Allowed" type="xs:boolean" />
       <xs:element minOccurs="0" name="Discount" type="xs:double" />
+      <xs:element minOccurs="0" name="DiscountType" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DriverName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ErrorDesc" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Limit" type="xs:double" />
+      <xs:element minOccurs="0" name="LimitType" nillable="true" type="xs:string" />
       <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ProductsCode" nillable="true" type="q1:ArrayOfint" />
       <xs:element minOccurs="0" name="Reference" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cPassRequired" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="AuthResult" nillable="true" type="tns:AuthResult" />

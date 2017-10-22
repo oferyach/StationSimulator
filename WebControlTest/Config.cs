@@ -41,6 +41,7 @@ namespace ForeFuelSimulator
         public string LimitPerMoneyText = "Money/Tnx";
         public int HOAuthDelay = 2000;
         public int PumpAuthDelay = 1500;
+        public bool UseCPass = false;
         public string CPassServer = "";
         public string CPassKey = "";
         public int CPassRetry = 5;
@@ -97,6 +98,7 @@ namespace ForeFuelSimulator
                     LimitPerMoneyText = xDoc.SelectSingleNode("Configuration/General/LimitPerMoneyText").InnerXml.ToString();
 
                     //CPass server data 
+                    UseCPass = bool.Parse(xDoc.SelectSingleNode("Configuration/General/CPass/Use").InnerXml.ToString());
                     CPassServer = xDoc.SelectSingleNode("Configuration/General/CPass/Server").InnerXml.ToString();
                     CPassKey = xDoc.SelectSingleNode("Configuration/General/CPass/Key").InnerXml.ToString();
                     CPassRetry = Int32.Parse(xDoc.SelectSingleNode("Configuration/General/CPass/Retry").InnerXml.ToString());
