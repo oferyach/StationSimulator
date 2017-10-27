@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<style>
+
+    @font-face {
+        font-family: myFirstFont;
+        src: url(LiquidCrystal-Normal.otf);
+    }
+
+    .serif {
+        font-family: "Arial", Times, sans-serif;
+        font-size: 200%;
+        color: white;
+    }
+
+    .pricename {
+        font-family: "Arial", Times, sans-serif;
+        font-size: 120%;
+        color: #e9e9ea;
+    }
+
+    .pricevalue {
+        font-family: "Arial", Times, sans-serif;
+        font-size: 250%;
+        color: rgb(200, 200,200);
+    }
+
+
+    .digital {
+        font-family: "Liquid Crystal";
+        font-size: 330%;
+        color: white;
+    }
+    .sansserif {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 100%;
+        color: white;
+    }
+
+
+    .centre {
+        width: 200px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 100%;
+        color: white;
+    }
+
+    
+
+</style>
+
+
+<html>
+<!-- oncontextmenu="return false;" -->
+<body background="BKG.png" unselectable="on" oncontextmenu="return false;" style="cursor: none">
+    <div style="background-color:transparent; width:1920px; height:1080px;" unselectable="on">
+        <div style="background-color:transparent; width:1280px; height:100px" unselectable="on"></div>
+        <div style="background-color: transparent; width: 320px; height: 620px; float:left;" unselectable="on">
+            
+            <div style="background-color: transparent; width: 60px; height: 620px; float: left;" unselectable="on"></div>
+            <div style="background-color: transparent; width: 160px; height: 620px; float: left;" unselectable="on">
+
+                <div style="background-color:transparent; width:305px; height:105px" unselectable="on">
+                    <img id="Station1" src="Station1.png" alt="" style="cursor:pointer" onclick="window.external.Station1Clicked();" unselectable="on" />
+                </div>
+                <div style="background-color:transparent; width:305px; height:105px" unselectable="on">
+                    <img id="Station2" src="Station2Un.png" alt="" style="cursor:pointer" onclick="window.external.Station2Clicked();" unselectable="on" />
+                </div>
+                <div style="background-color:transparent; width:305px; height:105px" unselectable="on">
+                    <img id="Station3" src="Station3Un.png" alt="" style="cursor:pointer" onclick="window.external.Station3Clicked();" unselectable="on" />
+                </div>
+            </div>
+        </div>    
+        <div style="background-color: transparent; width: 632px; height: 620px; float:left;" unselectable="on">
+            <div style="background-color:transparent; width:632px; height:105px" unselectable="on">
+                <div style="background-color: transparent; width:327px; height: 105px; float:left;" unselectable="on">
+                    <img id ="Nozz1" src="NozzDn.png" alt="" style="cursor:pointer" onclick="window.external.Nozzle1Clicked();" unselectable="on" />
+                </div>
+                <div style="background-color:transparent; width:305px; height:105px" unselectable="on">
+                    <img id="Nozz2" src="NozzDn.png" alt="" style="cursor:pointer" onclick="window.external.Nozzle2Clicked();" unselectable="on" />
+                </div>
+            </div>
+
+            <div style="background-color: transparent; width: 632px; height: 620px; float:left; " unselectable="on">
+                <img src="Pump Pane.png" alt="" unselectable="on" />
+
+            </div>
+
+
+        </div>
+
+        <div style="background-color: transparent; width: 60px; height: 620px; float: left;" unselectable="on"></div>
+        <div style="background-color: transparent; width: 230px; height: 620px; float: left;" unselectable="on">
+            <div style="background-color:transparent; width:305px; height:105px" unselectable="on">
+                <img id="Wash" src="WashHead.png" alt="" style="cursor:pointer"  unselectable="on" />
+            </div>
+            <div style="background-color:transparent; width:305px; height:105px" unselectable="on">
+                <img id="Wash1" src="Wash1.png" alt="" style="cursor:pointer" onclick="window.external.Wash1Clicked();" unselectable="on" />
+            </div>
+            <div style="background-color:transparent; width:305px; height:105px" unselectable="on">
+                <img id="Wash2" src="Wash2.png" alt="" style="cursor:pointer" onclick="window.external.Wash2Clicked();" unselectable="on" />
+            </div>
+
+            <div style="background-color:transparent; width:324px; height:219px" unselectable="on">
+                <img id="WashAnimation" src="CarWasher.gif" alt="" style="cursor:pointer; visibility:visible"  unselectable="on" />
+            </div>
+
+        </div>
+
+        <span style="position:absolute; left:490px; top: 230px; text-align:left" class="digital" id="saletext" unselectable="on">SALE</span>
+        <span style="position:absolute; left:630px; top: 230px; text-align:left" class="digital" id="sale" unselectable="on">00000.00</span>
+
+        <span style="position:absolute; left:490px; top: 290px; text-align:left" class="digital" id="voltext" unselectable="on">LTR</span>
+        <span style="position:absolute; left:630px; top: 290px; text-align:left" class="digital" id="vol" unselectable="on">00000.00</span>
+
+        <span style="position:absolute; left:480px; top: 120px; text-align:left" class="pricename" id="FuelName1" unselectable="on">REGULAR</span>
+        <span style="position:absolute; left:480px; top: 150px; text-align:left" class="pricevalue" id="FuelPrice1" unselectable="on">1.25</span>
+
+        <span style="position:absolute; left:790px; top: 120px; text-align:left" class="pricename" id="FuelName2" unselectable="on">DIESEL</span>
+        <span style="position:absolute; left:790px; top: 150px; text-align:left" class="pricevalue" id="FuelPrice2" unselectable="on">1.23</span>
+
+        <!--
+        <img src="Identification.png" style="position:absolute; left:764px; top: 378px; " alt="" unselectable="on" />
+        <span style="position:absolute; left:863px; top: 385px; text-align:center" class="serif" id="Plate" unselectable="on"></span>
+        <span style="position:absolute; left:863px; top: 485px; text-align:center" class="sansserif" id="PlateText" unselectable="on"></span>
+        -->
+
+        <img src="Identification.png" style="position:absolute; left:764px; top: 378px; " alt="" unselectable="on" />
+
+        <div style="position:absolute; left:764px; top: 380px; border:none; height: 150px; width: 200px">
+            <div style="border:none; height: 105px; top:15px; text-align:center;">
+                <span class="serif" id="Plate" unselectable="on"></span>
+            </div>  
+            <!--
+            <div style=" border:none; height: 105px;">
+                <img src="Identification.png" alt="" unselectable="on" />
+            </div>
+            -->
+
+            <div style="border:none; height: 20px; top: 82px; text-align:center;">
+                <span class="sansserif" id="PlateText" unselectable="on">Plate</span>
+            </div>
+
+        </div>
+
+
+        <img src="Limits.png" style="position:absolute; left:764px; top: 530px; " alt="" unselectable="on" />
+        <!--
+        <img src="Limits.png" style="position:absolute; left:764px; top: 530px; " alt="" unselectable="on" />
+        <span style="position:absolute; left:863px; top: 540px; text-align:center" class="serif" id="Limit" unselectable="on"></span>
+        <span style="position:absolute; left:764px; top: 638px;" class="centre">Limit</span>
+            -->
+
+        <div style="position:absolute; left:764px; top: 532px; border:none; height: 150px; width: 200px">
+            <div style="border:none; height: 105px; top:10px; text-align:center;">
+                <span class="serif" id="Limit" unselectable="on"></span>
+            </div>           
+
+            <div style="border:none; height: 20px; top: 88px; text-align:center;">
+                <span class="sansserif" id="LimitText" unselectable="on">Limit</span>
+            </div>
+
+        </div>
+
+        
+
+        <img src="Log.png" style="position:absolute; left:330px; top: 378px; " alt="" unselectable="on" />
+
+
+        <img src="Empty.png" style="position:absolute; left:340px; top: 383px; " id="LogPic1" alt="" unselectable="on" />
+        <span style="position:absolute; left:390px; top: 400px; text-align:left" class="sansserif" id="LogText1" unselectable="on"></span>
+
+        <img src="Empty.png" style="position:absolute; left:340px; top: 440px; " id="LogPic2" alt="" unselectable="on" />
+        <span style="position:absolute; left:390px; top: 456px; text-align:left" class="sansserif" id="LogText2" unselectable="on"></span>
+
+        <img src="Empty.png" style="position:absolute; left:340px; top: 500px; " id="LogPic3" alt="" unselectable="on" />
+        <span style="position:absolute; left:390px; top: 512px; text-align:left" class="sansserif" id="LogText3" unselectable="on"></span>
+
+        <img src="Empty.png" style="position:absolute; left:340px; top: 554px; " id="LogPic4" alt="" unselectable="on" />
+        <span style="position:absolute; left:390px; top: 568px; text-align:left" class="sansserif" id="LogText4" unselectable="on"></span>
+
+        <img src="Empty.png" style="position:absolute; left:340px; top: 611px; " id="LogPic5" alt="" unselectable="on" />
+        <span style="position:absolute; left:390px; top: 624px; text-align:left" class="sansserif" id="LogText5" unselectable="on"></span>
+        
+
+
+
+
+    </div>
+
+</body>
+</html>

@@ -7,6 +7,7 @@ using System.IO;
 using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Forms;
+using System.ServiceModel;
 
 
 namespace ForeFuelSimulator
@@ -101,7 +102,13 @@ namespace ForeFuelSimulator
 
                         myLog.Log("Going to request auth: " + c);
                         //get auth
-                        LoyaltyService.LoyaltyServiceClient s = new LoyaltyService.LoyaltyServiceClient();
+                        var myBinding = new BasicHttpBinding();
+                        myBinding.Security.Mode = BasicHttpSecurityMode.None;
+                        var myEndpointAddress = new EndpointAddress(conf.MSRService);
+                        LoyaltyService.LoyaltyServiceClient s = new LoyaltyService.LoyaltyServiceClient(myBinding, myEndpointAddress);
+
+
+                        
                         LoyaltyService.AuthResult res = new LoyaltyService.AuthResult();
                         try
                         {
@@ -110,7 +117,7 @@ namespace ForeFuelSimulator
                         catch (Exception ex)
                         {
                             myLog.Log("Error GetAuth - server down.");
-                            stat.msg = MsgLogType.CommErr;
+                            stat.msg = MsgLogType.MSRCommError;
                             m_sender.BeginInvoke(m_senderDelegate, stat);
                             continue;
                         }
@@ -118,16 +125,22 @@ namespace ForeFuelSimulator
                         myLog.Log("Got auth replay: " + res.Allowed.ToString() + ":" + res.DriverName+":"+res.ErrorDesc);
                         stat.ErrorDesc = res.ErrorDesc;
                         stat.carddata = c;
-                        stat.ProductsCode = res.ProductsCode;
-                        stat.Discount = res.Discount;
+                        stat.ProductsList = new List<MyProductItem>();
+                        foreach (ForeFuelSimulator.LoyaltyService.ProductItem item in res.ProductsList)
+                        {
+                            stat.ProductsList.Add(new MyProductItem(item.Code,item.Discount,item.DiscountType));    
+                        }                        
                         stat.Reference = res.Reference;
+                        stat.CPassRequired = res.cPassRequired;                        
+                        stat.PINRequired = res.PINRequired;
+                        stat.PIN = res.PinCode;
                         if (res.Allowed)
                         {
                             //check correct product
                             bool found = false;
-                            foreach (int code in res.ProductsCode)
+                            foreach (MyProductItem item in stat.ProductsList)
                             {
-                                if (code == ProductCode)
+                                if (item.Code == ProductCode)
                                 {
                                     found = true;
                                     break;

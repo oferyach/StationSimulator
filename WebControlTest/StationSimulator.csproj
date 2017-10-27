@@ -156,15 +156,15 @@
     <None Include="Service References\LoyaltyService\LoyaltyService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\LoyaltyService\LoyaltyService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\LoyaltyService\Service.wsdl" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="bin\Debug\BKG.png" />
     <Content Include="Debug\0004.01.png" />
     <Content Include="Debug\0005.37.png" />
     <Content Include="Debug\1.23.png" />

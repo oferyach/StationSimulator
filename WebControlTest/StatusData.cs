@@ -26,13 +26,16 @@ namespace ForeFuelSimulator
         WGTConnected,
 
         //MSR part
+        MSRCommError,
         MSRRead,
         MSRRequestAuth,
         MSRBadRead,
         MSRAuth,
         MSRReject,
         MSRWrongProduct,
-        MSRSSelectProduct
+        MSRSSelectProduct,
+        MSRWash1Selected,
+        MSRWash2Selected
 
 
 
@@ -57,6 +60,19 @@ namespace ForeFuelSimulator
         public double PPV;
     }
 
+    public class MyProductItem
+    {
+        public int Code;
+        public double Discount;
+        public string DiscountType;
+        public MyProductItem(int code,double discount,string type)
+        {
+            Code = code;
+            Discount = discount;
+            DiscountType = type;
+        }
+    }
+
     public class MSRStatusData
     {
         public int status;
@@ -64,10 +80,16 @@ namespace ForeFuelSimulator
         public string DriverName;
         public string ErrorDesc;
         public double Limit;
-        public double Discount;
+        public string LimitType;
+        public List<MyProductItem> ProductsList;
+        //public double Discount;
+        //public string DiscountType;
+        public bool CPassRequired;
+        public bool PINRequired;
+        public string PIN;
         public string Reference;
         public MsgLogType msg;
         public int nozz;
-        public int[] ProductsCode;
+        //public int[] ProductsCode;
     }
 }

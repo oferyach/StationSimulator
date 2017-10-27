@@ -22,6 +22,7 @@
         <xs:element minOccurs="0" name="referece" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="amount" type="xs:double" />
         <xs:element minOccurs="0" name="volume" type="xs:double" />
+        <xs:element minOccurs="0" name="ProductCode" type="xs:int" />
         <xs:element minOccurs="0" name="datetime" type="xs:dateTime" />
       </xs:sequence>
     </xs:complexType>

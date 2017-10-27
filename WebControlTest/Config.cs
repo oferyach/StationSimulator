@@ -33,6 +33,8 @@ namespace ForeFuelSimulator
         public string Product2 = "Prod2";
         public int Prod1Code = 0;
         public int Prod2Code = 0;
+        public int Wash1Code = 0;
+        public int Wash2Code = 0;
         public string Units = "Units";
         public double flowrate = 60.0;
         public string LimitText = "Limit";
@@ -52,6 +54,7 @@ namespace ForeFuelSimulator
 
         //MSR section
         public bool UseMSR;
+        public string MSRService;
 
         public string Station1Code = "1";
         public string Station2Code = "2";
@@ -82,11 +85,14 @@ namespace ForeFuelSimulator
                     Product2 = xDoc.SelectSingleNode("Configuration/General/Prod2").InnerXml.ToString();
                     Prod1Code = Int32.Parse(xDoc.SelectSingleNode("Configuration/General/Prod1Code").InnerXml.ToString());
                     Prod2Code = Int32.Parse(xDoc.SelectSingleNode("Configuration/General/Prod2Code").InnerXml.ToString());
+                    Wash1Code = Int32.Parse(xDoc.SelectSingleNode("Configuration/General/Wash1Code").InnerXml.ToString());
+                    Wash2Code = Int32.Parse(xDoc.SelectSingleNode("Configuration/General/Wash2Code").InnerXml.ToString());
                     Units = xDoc.SelectSingleNode("Configuration/General/Units").InnerXml.ToString();
 
 
                     //MSR section
                     UseMSR = bool.Parse(xDoc.SelectSingleNode("Configuration/General/MSR/Use").InnerXml.ToString());
+                    MSRService = xDoc.SelectSingleNode("Configuration/General/MSR/Service").InnerXml.ToString();
 
                     Station1Code = xDoc.SelectSingleNode("Configuration/General/Station1Code").InnerXml.ToString();
                     Station2Code = xDoc.SelectSingleNode("Configuration/General/Station2Code").InnerXml.ToString();

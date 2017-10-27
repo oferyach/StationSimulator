@@ -16,6 +16,7 @@ using System.Net.Sockets;
 using System.ServiceProcess;
 using System.Collections;
 using System.Web.Script.Serialization;
+using System.ServiceModel;
 
 namespace ForeFuelSimulator
 {
@@ -33,8 +34,13 @@ namespace ForeFuelSimulator
         {
             MSRTimer.Stop();
             //MessageBox.Show("Timer done");
-
-            if (true) //CheckAuth(cardtoauth, ActiveNozz, ref limit, ref type, ref plate, ref reason))
+            if (ProductCode == conf.Wash1Code || ProductCode == conf.Wash2Code)
+            {
+                AnimationPhase = 2;
+                AnimationTimer.Start();
+                WashPlayer.PlayLooping();
+            }
+            else if (true)//CheckAuth(cardtoauth, ActiveNozz, ref limit, ref type, ref plate, ref reason))
             {
                 ps = PumpStatus.InUse;
                 pup.ResetVol(conf.PumpAuthDelay);
@@ -80,10 +86,14 @@ namespace ForeFuelSimulator
             {
                 //check for correct nozzle
                 bool found = false;
-                foreach (int code in msgSaved.ProductsCode)
+                double discount = 0;
+                string discounttype = "";
+                foreach (MyProductItem item in msgSaved.ProductsList)
                 {
-                    if (code == ProductCode)
+                    if (item.Code == ProductCode)
                     {
+                        discount = item.Discount;
+                        discounttype = item.DiscountType;
                         found = true;
                         break;
                     }
@@ -103,7 +113,27 @@ namespace ForeFuelSimulator
                 MobileRes = "None";
                 CPassTry = 0;
                 MsgID++;
-                UpdatePPV(msgSaved.Discount);
+                //find the product discount
+                found = false;
+                MyProductItem itemfound = null;
+                foreach (MyProductItem item in msgSaved.ProductsList)
+                {
+                    if (item.Code == ProductCode)
+                    {
+                        found = true;
+                        itemfound = item;
+                        break;
+                    }
+                }
+                if (found)
+                {
+                    //check limit type
+                    if (itemfound.DiscountType == "%")
+                        UpdatePPVPrecent(itemfound.Discount);
+                    else
+                        UpdatePPVAbs(itemfound.Discount);
+
+                }
                 MSRTimer.Start();
                 return true;
             }
@@ -118,18 +148,33 @@ namespace ForeFuelSimulator
             {
                 if (msg.status == -1)
                 {
-                    AddToLogList(MsgLogType.CommErr, "", 0, "", 0, msg.carddata);
+                    AddToLogList(MsgLogType.MSRCommError, "", 0, "", 0, msg.carddata);
                     return;
                 }
 
-                
-                
+
+                if ((ProductCode == conf.Wash1Code || ProductCode == conf.Wash2Code) && msg.msg == MsgLogType.MSRWrongProduct) //we are in wash?
+                {
+                    if (ProductCode == conf.Wash1Code)
+                        Wash1Clicked(); //simulate relese
+                    else
+                        Wash2Clicked();                    
+                }
 
                 if (msg.msg != MsgLogType.MSRAuth) //just update the status
                 {
                     AddToLogList(msg.msg, msg.ErrorDesc, 1, msg.DriverName, msg.Limit, msg.carddata);
                     msgSaved = null;
                     return; 
+                }
+
+                if (ProductCode == conf.Wash1Code || ProductCode == conf.Wash2Code) //we are in wash?
+                {
+                    AnimationPhase = 2;
+                    WashInProgress = true;
+                    AnimationTimer.Start();
+                    WashPlayer.PlayLooping();
+                    return;
                 }
 
                 //we got authorization check if pump is ready
@@ -152,11 +197,33 @@ namespace ForeFuelSimulator
                             dd.cardnum = msg.carddata;
                             dd.limit = msg.Limit;
                             dd.plate = msg.DriverName;
-                            dd.type = "Money";
+                            dd.type = msg.LimitType;
+                            dd.bCPass = msg.CPassRequired;                            
                             MobileRes = "None";
                             CPassTry = 0;
                             MsgID++;
-                            UpdatePPV(msg.Discount);
+                            //find the product discount
+                            bool found = false;
+                            MyProductItem itemfound = null;
+                            foreach (MyProductItem item in msg.ProductsList)
+                            {
+                                if (item.Code == ProductCode)
+                                {
+                                    found = true;
+                                    itemfound = item;
+                                    break;
+                                }
+                            }
+                            if (found)
+                            {
+                                //check limit type
+                                if (itemfound.DiscountType =="%")
+                                    UpdatePPVPrecent(itemfound.Discount);                                        
+                                else
+                                    UpdatePPVAbs(itemfound.Discount);    
+
+                            }
+                            
                             MSRTimer.Start();
                         }
 
@@ -178,13 +245,17 @@ namespace ForeFuelSimulator
 
         public void SendTransactionComplete()
         {
-            LoyaltyService.LoyaltyServiceClient s = new LoyaltyService.LoyaltyServiceClient();
+            
             LoyaltyService.TransactionCompleteResult res = new LoyaltyService.TransactionCompleteResult();
+            var myBinding = new BasicHttpBinding();
+            myBinding.Security.Mode = BasicHttpSecurityMode.None;
+            var myEndpointAddress = new EndpointAddress(conf.MSRService);
+            LoyaltyService.LoyaltyServiceClient s = new LoyaltyService.LoyaltyServiceClient(myBinding, myEndpointAddress);
 
             try
             {
 
-                res = s.TransactionComplete(msr.lastReference, lastamount, lastvol, DateTime.Now);
+                res = s.TransactionComplete(msr.lastReference, lastamount, lastvol, msr.ProductCode,DateTime.Now);
             }
 
             catch (Exception ex)

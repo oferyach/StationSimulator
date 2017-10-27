@@ -22,12 +22,11 @@
     <MetadataSource Address="http://localhost:49954/LoyaltyService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Service.wsdl" MetadataType="Wsdl" ID="f5bab79b-36f7-4143-bae5-8dc22d46c117" SourceId="1" SourceUrl="http://localhost:49954/LoyaltyService.svc?wsdl" />
+    <MetadataFile FileName="LoyaltyService.disco" MetadataType="Disco" ID="64b3fa58-5946-457e-9c0e-b02f01b8f1de" SourceId="1" SourceUrl="http://localhost:49954/LoyaltyService.svc?disco" />
     <MetadataFile FileName="LoyaltyService.xsd" MetadataType="Schema" ID="e8c37db9-3ec6-479e-8c7f-d0321ff6d606" SourceId="1" SourceUrl="http://localhost:49954/LoyaltyService.svc?xsd=xsd2" />
-    <MetadataFile FileName="LoyaltyService3.xsd" MetadataType="Schema" ID="b131c6b2-9a36-4dc3-848d-bdaf5c14dff7" SourceId="1" SourceUrl="http://localhost:49954/LoyaltyService.svc?xsd=xsd3" />
     <MetadataFile FileName="LoyaltyService1.xsd" MetadataType="Schema" ID="0795a931-0b20-41c8-880d-d64d4308b075" SourceId="1" SourceUrl="http://localhost:49954/LoyaltyService.svc?xsd=xsd0" />
     <MetadataFile FileName="LoyaltyService2.xsd" MetadataType="Schema" ID="c0179ac3-f53a-4a10-a385-f6654680c041" SourceId="1" SourceUrl="http://localhost:49954/LoyaltyService.svc?xsd=xsd1" />
-    <MetadataFile FileName="LoyaltyService.disco" MetadataType="Disco" ID="64b3fa58-5946-457e-9c0e-b02f01b8f1de" SourceId="1" SourceUrl="http://localhost:49954/LoyaltyService.svc?disco" />
+    <MetadataFile FileName="Service.wsdl" MetadataType="Wsdl" ID="f5bab79b-36f7-4143-bae5-8dc22d46c117" SourceId="1" SourceUrl="http://localhost:49954/LoyaltyService.svc?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

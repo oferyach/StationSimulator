@@ -62,6 +62,10 @@ namespace ForeFuelSimulator
         public StatusData laststatus = new StatusData();
         static System.Windows.Forms.Timer myTimer = new System.Windows.Forms.Timer();
 
+        static System.Windows.Forms.Timer AnimationTimer = new System.Windows.Forms.Timer();
+        System.Media.SoundPlayer WashPlayer = new System.Media.SoundPlayer();
+        
+
         string MobileRes = "None";
         int CPassTry = 0;
 
@@ -92,6 +96,9 @@ namespace ForeFuelSimulator
             laststatus.carddata = "";
             laststatus.status = -2;
 
+            AnimationTimer.Tick += new EventHandler(AnimationTimerPorcessor);
+            AnimationTimer.Interval = 2500; //5 seconds
+            WashPlayer.SoundLocation = "Carwash.wav";
 
             myTimer.Tick += new EventHandler(TimerEventProcessor);
             // Sets the timer interval to 2 seconds.
@@ -306,6 +313,22 @@ namespace ForeFuelSimulator
                 mForm.Station3_Click();
             }
 
+            public void Station4Clicked()
+            {
+                mForm.Station4_Click();
+            }
+
+            public void Wash1Clicked()
+            {
+                mForm.Wash1Clicked();
+            }
+
+            public void Wash2Clicked()
+            {
+                mForm.Wash2Clicked();
+            }
+
+
 
             // This method can also be called from JavaScript.
             public void AnotherMethod(string message)
@@ -315,7 +338,7 @@ namespace ForeFuelSimulator
         }
 
 
-        private void UpdatePPV(double Discount)
+        private void UpdatePPVPrecent(double Discount)
         {
             HtmlElement a;
 
@@ -326,6 +349,19 @@ namespace ForeFuelSimulator
             a.InnerHtml = (conf.PPV2*(1-Discount/100)).ToString("0.00");
 
             pup.SetPPV(conf.PPV1 * (1 - Discount / 100), conf.PPV2* (1-Discount/100));
+        }
+
+        private void UpdatePPVAbs(double Discount)
+        {
+            HtmlElement a;
+
+            a = MainPage.Document.GetElementById("FuelPrice1");
+            a.InnerHtml = (conf.PPV1 - Discount).ToString("0.00");
+
+            a = MainPage.Document.GetElementById("FuelPrice2");
+            a.InnerHtml = (conf.PPV2 - Discount).ToString("0.00");
+
+            pup.SetPPV(conf.PPV1 - Discount, conf.PPV2 - Discount);
         }
 
         private void MainPage_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
@@ -386,6 +422,64 @@ namespace ForeFuelSimulator
         static int statustouse = 0x30;
 
         static StatusData gotmsg = null;
+
+        static int AnimationPhase = -1;
+        
+        private void AnimationTimerPorcessor(Object myObject, EventArgs myEventArgs)
+        {
+            HtmlElement a =  MainPage.Document.GetElementById("WashAnimation");
+            HtmlElement b =  MainPage.Document.GetElementById("WashTime"); 
+            switch (AnimationPhase)
+            {
+                case 1:
+                    a.SetAttribute("src", "Washing1.png"); 
+                    break;
+                case 2:
+                    a.SetAttribute("src", "Washing2.png");
+                    b.InnerHtml = (AnimationPhase * 2).ToString("00") + "'";
+                    break;
+                case 3:
+                    a.SetAttribute("src", "Washing3.png");
+                    b.InnerHtml = (AnimationPhase * 2).ToString("00") + "'";
+
+                    break;
+                case 4:
+                    a.SetAttribute("src", "Washing4.png");
+                    b.InnerHtml = (AnimationPhase * 2).ToString("00") + "'";
+                    break;
+                case 5:
+                    a.SetAttribute("src", "Washing5.png");
+                    b.InnerHtml = (AnimationPhase * 2).ToString("00") + "'";
+                    break;
+                case 6:
+                    a.SetAttribute("src", "Washing6.png");
+                    b.InnerHtml = (AnimationPhase * 2).ToString("00") + "'";
+                    break;
+                case 7:
+                    
+                    AnimationPhase = -1;
+                    AnimationTimer.Stop();
+                    a.SetAttribute("src", "Washing1.png");
+                    if (WashSelected == 1)
+                    {
+                        a = MainPage.Document.GetElementById("Wash1");
+                        a.SetAttribute("src", "carwashbuttonOff.png");
+                    }
+                    else
+                    {
+                        a = MainPage.Document.GetElementById("Wash2");
+                        a.SetAttribute("src", "carwashbuttonpremiumOff.png");
+                    }
+                    WashSelected = -1;
+                    b.InnerHtml = "00'";
+                    WashPlayer.Stop();
+                    WashInProgress = false;
+                    break;
+
+            }
+            AnimationPhase++;
+            
+        }
        
 
         private  void TimerEventProcessor(Object myObject, EventArgs myEventArgs)
@@ -777,6 +871,62 @@ namespace ForeFuelSimulator
             }
         }
 
+        int WashSelected = -1;
+        bool WashInProgress = false;
+
+        public void Wash1Clicked()
+        {
+            HtmlElement a = null;
+            if (pup.GetNozz() == 1 || pup.GetNozz() == 2)
+                return;
+            if (WashInProgress)
+                return; 
+            if (WashSelected == 1)
+            {
+                WashSelected = -1;
+                a = MainPage.Document.GetElementById("Wash1");
+                a.SetAttribute("src", "carwashbuttonOff.png");
+                msr.SetInfo(SelectedStation, ProductCode);
+                return;
+            }
+            WashSelected = 1;
+            a = MainPage.Document.GetElementById("Wash1");
+            a.SetAttribute("src", "carwashbuttonOn.png");
+            a = MainPage.Document.GetElementById("Wash2");
+            a.SetAttribute("src", "carwashbuttonpremiumOff.png");
+            ProductCode = conf.Wash1Code;
+            msr.SetInfo(SelectedStation, ProductCode);
+            AddToLogList(MsgLogType.MSRWash1Selected, "", 0, "", 0, "");
+ 
+        }
+
+        public void Wash2Clicked()
+        {
+            HtmlElement a = null;
+            if (pup.GetNozz() == 1 || pup.GetNozz() == 2)
+                return;
+            if (WashInProgress)
+                return;
+            if (WashSelected == 2)
+            {
+                WashSelected = -1;
+                a = MainPage.Document.GetElementById("Wash2");
+                a.SetAttribute("src", "carwashbuttonpremiumOff.png");
+                msr.SetInfo(SelectedStation, ProductCode);
+                return;
+            }
+            WashSelected = 2;
+            a = MainPage.Document.GetElementById("Wash2");
+            a.SetAttribute("src", "carwashbuttonpremiumOn.png");
+            a = MainPage.Document.GetElementById("Wash1");
+            a.SetAttribute("src", "carwashbuttonOff.png");
+            ProductCode = conf.Wash2Code;
+            msr.SetInfo(SelectedStation, ProductCode);
+            AddToLogList(MsgLogType.MSRWash2Selected, "", 0, "", 0, "");
+            
+        }
+
+
         public int SelectedStation = 1;
 
         //stations
@@ -786,13 +936,15 @@ namespace ForeFuelSimulator
                 return; //no reselect
             //unslected others
             HtmlElement a = MainPage.Document.GetElementById("Station2");
-            a.SetAttribute("src", "Station2Un.png");
+            a.SetAttribute("src", "Sitebutton2Off.png");
             a = MainPage.Document.GetElementById("Station3");
-            a.SetAttribute("src", "Station3Un.png");
+            a.SetAttribute("src", "Sitebutton3Off.png");
+            a = MainPage.Document.GetElementById("Station4");
+            a.SetAttribute("src", "Sitebutton4Off.png");
 
             //select this
             a = MainPage.Document.GetElementById("Station1");
-            a.SetAttribute("src", "Station1.png");
+            a.SetAttribute("src", "Sitebutton1On.png");
             SelectedStation = 1;
             msr.SetInfo(SelectedStation,ProductCode);
         }
@@ -803,13 +955,15 @@ namespace ForeFuelSimulator
                 return; //no reselect
             //unslected others
             HtmlElement a = MainPage.Document.GetElementById("Station1");
-            a.SetAttribute("src", "Station1Un.png");
+            a.SetAttribute("src", "sitebutton1Off.png");
             a = MainPage.Document.GetElementById("Station3");
-            a.SetAttribute("src", "Station3Un.png");
+            a.SetAttribute("src", "Sitebutton3Off.png");
+            a = MainPage.Document.GetElementById("Station4");
+            a.SetAttribute("src", "Sitebutton4Off.png");
 
             //select this
             a = MainPage.Document.GetElementById("Station2");
-            a.SetAttribute("src", "Station2.png");
+            a.SetAttribute("src", "Sitebutton2On.png");
             SelectedStation = 2;
             msr.SetInfo(SelectedStation,ProductCode);
         }
@@ -820,15 +974,36 @@ namespace ForeFuelSimulator
                 return; //no reselect
             //unslected others
             HtmlElement a = MainPage.Document.GetElementById("Station1");
-            a.SetAttribute("src", "Station1Un.png");
+            a.SetAttribute("src", "Sitebutton1Off.png");
             a = MainPage.Document.GetElementById("Station2");
-            a.SetAttribute("src", "Station2Un.png");
+            a.SetAttribute("src", "Sitebutton2Off.png");
+            a = MainPage.Document.GetElementById("Station4");
+            a.SetAttribute("src", "Sitebutton4Off.png");
 
             //select this
             a = MainPage.Document.GetElementById("Station3");
-            a.SetAttribute("src", "Station3.png");
+            a.SetAttribute("src", "Sitebutton3On.png");
             SelectedStation = 3;
             msr.SetInfo(SelectedStation,ProductCode);
+        }
+
+        public void Station4_Click()
+        {
+            if (SelectedStation == 4)
+                return; //no reselect
+            //unslected others
+            HtmlElement a = MainPage.Document.GetElementById("Station1");
+            a.SetAttribute("src", "Sitebutton1Off.png");
+            a = MainPage.Document.GetElementById("Station2");
+            a.SetAttribute("src", "Sitebutton2Off.png");
+            a = MainPage.Document.GetElementById("Station3");
+            a.SetAttribute("src", "Sitebutton3Off.png");
+
+            //select this
+            a = MainPage.Document.GetElementById("Station4");
+            a.SetAttribute("src", "Sitebutton4On.png");
+            SelectedStation = 3;
+            msr.SetInfo(SelectedStation, ProductCode);
         }
         
 
@@ -920,7 +1095,11 @@ namespace ForeFuelSimulator
 
                 //MSR part
 
-
+                case MsgLogType.MSRCommError:
+                    line = "Communication error with Host.";
+                    
+                bInError = true;
+                break;
                 case MsgLogType.MSRRead:
                     line = "Swiped card <" + cardnum + ">.";
                     //pic = "";
@@ -946,7 +1125,13 @@ namespace ForeFuelSimulator
                     //pic = "";
                 break;
                 case MsgLogType.MSRSSelectProduct:
-                line = "Select Product.";
+                    line = "Select Product.";
+                break;
+                case MsgLogType.MSRWash1Selected:
+                    line = "Wash standard selected.";
+                break;
+                case MsgLogType.MSRWash2Selected:
+                    line = "Wash premium selected.";
                 break;
 
             }
@@ -1026,6 +1211,8 @@ namespace ForeFuelSimulator
                     _skipOnce = false;
                     return;
                 }
+                if (e.Control)
+                    return;
                 _skipOnce = true;
                 char k = KeyCodeToKey(e.KeyCode);
                 if (e.KeyCode == Keys.Return)

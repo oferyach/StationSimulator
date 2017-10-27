@@ -44,7 +44,13 @@ namespace ForeFuelSimulator.LoyaltyService {
         private string LimitTypeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int[] ProductsCodeField;
+        private bool PINRequiredField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PinCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private ForeFuelSimulator.LoyaltyService.ProductItem[] ProductsListField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ReferenceField;
@@ -154,14 +160,40 @@ namespace ForeFuelSimulator.LoyaltyService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int[] ProductsCode {
+        public bool PINRequired {
             get {
-                return this.ProductsCodeField;
+                return this.PINRequiredField;
             }
             set {
-                if ((object.ReferenceEquals(this.ProductsCodeField, value) != true)) {
-                    this.ProductsCodeField = value;
-                    this.RaisePropertyChanged("ProductsCode");
+                if ((this.PINRequiredField.Equals(value) != true)) {
+                    this.PINRequiredField = value;
+                    this.RaisePropertyChanged("PINRequired");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PinCode {
+            get {
+                return this.PinCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PinCodeField, value) != true)) {
+                    this.PinCodeField = value;
+                    this.RaisePropertyChanged("PinCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public ForeFuelSimulator.LoyaltyService.ProductItem[] ProductsList {
+            get {
+                return this.ProductsListField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProductsListField, value) != true)) {
+                    this.ProductsListField = value;
+                    this.RaisePropertyChanged("ProductsList");
                 }
             }
         }
@@ -188,6 +220,83 @@ namespace ForeFuelSimulator.LoyaltyService {
                 if ((this.cPassRequiredField.Equals(value) != true)) {
                     this.cPassRequiredField = value;
                     this.RaisePropertyChanged("cPassRequired");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ProductItem", Namespace="http://schemas.datacontract.org/2004/07/AuthService")]
+    [System.SerializableAttribute()]
+    public partial class ProductItem : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double DiscountField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DiscountTypeField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Code {
+            get {
+                return this.CodeField;
+            }
+            set {
+                if ((this.CodeField.Equals(value) != true)) {
+                    this.CodeField = value;
+                    this.RaisePropertyChanged("Code");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double Discount {
+            get {
+                return this.DiscountField;
+            }
+            set {
+                if ((this.DiscountField.Equals(value) != true)) {
+                    this.DiscountField = value;
+                    this.RaisePropertyChanged("Discount");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DiscountType {
+            get {
+                return this.DiscountTypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DiscountTypeField, value) != true)) {
+                    this.DiscountTypeField = value;
+                    this.RaisePropertyChanged("DiscountType");
                 }
             }
         }
@@ -274,10 +383,10 @@ namespace ForeFuelSimulator.LoyaltyService {
         System.Threading.Tasks.Task<ForeFuelSimulator.LoyaltyService.AuthResult> GetAuthAsync(string card, string stationcode);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/LoyaltyService/TransactionComplete", ReplyAction="http://tempuri.org/LoyaltyService/TransactionCompleteResponse")]
-        ForeFuelSimulator.LoyaltyService.TransactionCompleteResult TransactionComplete(string referece, double amount, double volume, System.DateTime datetime);
+        ForeFuelSimulator.LoyaltyService.TransactionCompleteResult TransactionComplete(string referece, double amount, double volume, int ProductCode, System.DateTime datetime);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/LoyaltyService/TransactionComplete", ReplyAction="http://tempuri.org/LoyaltyService/TransactionCompleteResponse")]
-        System.Threading.Tasks.Task<ForeFuelSimulator.LoyaltyService.TransactionCompleteResult> TransactionCompleteAsync(string referece, double amount, double volume, System.DateTime datetime);
+        System.Threading.Tasks.Task<ForeFuelSimulator.LoyaltyService.TransactionCompleteResult> TransactionCompleteAsync(string referece, double amount, double volume, int ProductCode, System.DateTime datetime);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -315,12 +424,12 @@ namespace ForeFuelSimulator.LoyaltyService {
             return base.Channel.GetAuthAsync(card, stationcode);
         }
         
-        public ForeFuelSimulator.LoyaltyService.TransactionCompleteResult TransactionComplete(string referece, double amount, double volume, System.DateTime datetime) {
-            return base.Channel.TransactionComplete(referece, amount, volume, datetime);
+        public ForeFuelSimulator.LoyaltyService.TransactionCompleteResult TransactionComplete(string referece, double amount, double volume, int ProductCode, System.DateTime datetime) {
+            return base.Channel.TransactionComplete(referece, amount, volume, ProductCode, datetime);
         }
         
-        public System.Threading.Tasks.Task<ForeFuelSimulator.LoyaltyService.TransactionCompleteResult> TransactionCompleteAsync(string referece, double amount, double volume, System.DateTime datetime) {
-            return base.Channel.TransactionCompleteAsync(referece, amount, volume, datetime);
+        public System.Threading.Tasks.Task<ForeFuelSimulator.LoyaltyService.TransactionCompleteResult> TransactionCompleteAsync(string referece, double amount, double volume, int ProductCode, System.DateTime datetime) {
+            return base.Channel.TransactionCompleteAsync(referece, amount, volume, ProductCode, datetime);
         }
     }
 }

@@ -33,6 +33,7 @@
 		<PumpAuthDelay>1500</PumpAuthDelay>
 		<HOAuthDelay>2000</HOAuthDelay>
 		<CPass>
+      <Use>true</Use>
 			<Server>http://cpass2ndauth.azurewebsites.net</Server>
 			<Key1>Gg5lvEloTlZZcifbG7IjQ2DvMdWLnD1AQ0Ip7NPhXAHFkr8OFDNK0EnQVl5jz0194H_kL981GaAV5jLDGJkYJ_xuqrfXraLzzWlZXopItVRM6WrsmNLuDrc20i6Z05cQ45MF13FgtlPmKqvhoX808fyOMo61cxESO3iJam1KbQvNiHd7qQRtF870FglgYehJ1WbJkEg0-8ADWUPei6-o7Licwz5sYZrLuX82X7rtpLHtlR8TAInHwLdYfcXi6J8XBHC39yA4a-OHm7iwLmfcAnVa7q6HgvjszW_p44d2CVrjqYioTA7KO4jh8eEGN6AV</Key1>
 			<Key>DcCBvanc6oGJyFDm_p0cipdIj8zsXVsByJzkrM3_ZLsJP6vojNn8rcmgXUMKXyuAhLzGzaZFbYgTtRpeC58Z6dg9tupgYI1TI01yyOYNkMTML0qoRd9Z6anD3cWfhDm19CUH0hBlZgNt2_V_nUhKTBW9rCwhcWvWJ8aYOXEjnXba4XgxsXnDzs76cUNF-jcPusSNjo6zHFV-B42EsTSt4vY9N8CKNPMyYoXzRWtTUlVqyj6Y8ixmEw-nfDCjCXGmjnN1LMNV_PatBHLQGc3tmLprpbxM4y-glkqHQwJIElFOBZ5MHvwqhv7zPspXGkcG</Key>
