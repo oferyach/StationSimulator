@@ -8,10 +8,12 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Forms;
 using System.ServiceModel;
+using System.ServiceModel.Channels;
 
 
 namespace ForeFuelSimulator
 {
+
     public class MSR
     {
         static ContainerControl m_sender = null;
@@ -61,12 +63,14 @@ namespace ForeFuelSimulator
                 case 1: code = conf.Station1Code; break;
                 case 2: code = conf.Station2Code; break;
                 case 3: code = conf.Station3Code; break;
+                case 4: code = conf.Station4Code; break;
             }
 
             return code;
 
         }
 
+        
         
 
          public void Worker()
@@ -103,12 +107,16 @@ namespace ForeFuelSimulator
                         myLog.Log("Going to request auth: " + c);
                         //get auth
                         var myBinding = new BasicHttpBinding();
+                       // DisableDecompression(myBinding);
+                        
                         myBinding.Security.Mode = BasicHttpSecurityMode.None;
                         var myEndpointAddress = new EndpointAddress(conf.MSRService);
                         LoyaltyService.LoyaltyServiceClient s = new LoyaltyService.LoyaltyServiceClient(myBinding, myEndpointAddress);
 
 
+                        myBinding.MessageEncoding = WSMessageEncoding.Text;
                         
+                                              
                         LoyaltyService.AuthResult res = new LoyaltyService.AuthResult();
                         try
                         {
@@ -161,6 +169,7 @@ namespace ForeFuelSimulator
                             stat.msg = MsgLogType.MSRReject;
                         stat.DriverName = res.DriverName;
                         stat.Limit = res.Limit;
+                        stat.LimitType = res.LimitType;
                         m_sender.BeginInvoke(m_senderDelegate, stat);
                      }
                  }

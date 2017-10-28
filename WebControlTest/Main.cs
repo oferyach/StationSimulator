@@ -97,7 +97,7 @@ namespace ForeFuelSimulator
             laststatus.status = -2;
 
             AnimationTimer.Tick += new EventHandler(AnimationTimerPorcessor);
-            AnimationTimer.Interval = 2500; //5 seconds
+            AnimationTimer.Interval = 1000; //1 seconds
             WashPlayer.SoundLocation = "Carwash.wav";
 
             myTimer.Tick += new EventHandler(TimerEventProcessor);
@@ -388,11 +388,13 @@ namespace ForeFuelSimulator
                 a = MainPage.Document.GetElementById("VolText");
                 a.InnerHtml = conf.Units;
 
-                a = MainPage.Document.GetElementById("PlateText");
-                a.InnerHtml = conf.PlateText;
+                //the below is now hard coded in image
+                //a = MainPage.Document.GetElementById("PlateText");
+                //a.InnerHtml = conf.PlateText;
 
-                a = MainPage.Document.GetElementById("LimitText");
-                a.InnerHtml = conf.LimitText;
+                //the below text is now hard coded in image
+                //a = MainPage.Document.GetElementById("LimitText");
+                //a.InnerHtml = conf.LimitText;
 
 
 
@@ -428,32 +430,36 @@ namespace ForeFuelSimulator
         private void AnimationTimerPorcessor(Object myObject, EventArgs myEventArgs)
         {
             HtmlElement a =  MainPage.Document.GetElementById("WashAnimation");
-            HtmlElement b =  MainPage.Document.GetElementById("WashTime"); 
-            switch (AnimationPhase)
+            HtmlElement b =  MainPage.Document.GetElementById("WashTime");
+
+            b.InnerHtml = (AnimationPhase).ToString("00") + "'";
+
+            int p = AnimationPhase / 2;
+            switch (p)
             {
                 case 1:
                     a.SetAttribute("src", "Washing1.png"); 
                     break;
                 case 2:
                     a.SetAttribute("src", "Washing2.png");
-                    b.InnerHtml = (AnimationPhase * 2).ToString("00") + "'";
+                    
                     break;
                 case 3:
                     a.SetAttribute("src", "Washing3.png");
-                    b.InnerHtml = (AnimationPhase * 2).ToString("00") + "'";
+                   
 
                     break;
                 case 4:
                     a.SetAttribute("src", "Washing4.png");
-                    b.InnerHtml = (AnimationPhase * 2).ToString("00") + "'";
+                    
                     break;
                 case 5:
                     a.SetAttribute("src", "Washing5.png");
-                    b.InnerHtml = (AnimationPhase * 2).ToString("00") + "'";
+                    
                     break;
                 case 6:
                     a.SetAttribute("src", "Washing6.png");
-                    b.InnerHtml = (AnimationPhase * 2).ToString("00") + "'";
+                   
                     break;
                 case 7:
                     
@@ -474,6 +480,8 @@ namespace ForeFuelSimulator
                     b.InnerHtml = "00'";
                     WashPlayer.Stop();
                     WashInProgress = false;
+                    SendTransactionComplete();
+                    AddToLogList(MsgLogType.TransEnded, "", 1, "", 0, "");  
                     break;
 
             }
@@ -493,7 +501,7 @@ namespace ForeFuelSimulator
                 pup.ResetVol(conf.PumpAuthDelay);
                 pup.SetStatus(ps, limit, dd.type, dd.plate, conf.flowrate, -1);
                 AddToLogList(MsgLogType.Authorized, reason, 0, plate, limit, gotmsg.carddata);
-                (MainPage.Document.GetElementById("Plate")).InnerHtml = plate;
+                (MainPage.Document.GetElementById("Plate")).InnerHtml = "Welcome "+plate;
                 if (type == "Money")
                     (MainPage.Document.GetElementById("Limit")).InnerHtml = limit.ToString("0") + " " + conf.LimitPerMoneyText;
                 else
@@ -595,7 +603,7 @@ namespace ForeFuelSimulator
                             ps = PumpStatus.Ready;
                             pup.SetStatus(ps, limit, dd.type, dd.plate, conf.flowrate, -1);
                             AddToLogList(MsgLogType.Authorized, reason, 0, plate, limit, msg.carddata);
-                            (MainPage.Document.GetElementById("Plate")).InnerHtml = plate;
+                            (MainPage.Document.GetElementById("Plate")).InnerHtml = "Welcome "+plate;
                             if (type == "Money")
                                 (MainPage.Document.GetElementById("Limit")).InnerHtml = limit.ToString("0.00")+" "+conf.LimitPerMoneyText;
                             else
@@ -695,7 +703,7 @@ namespace ForeFuelSimulator
                                 ps = PumpStatus.Ready;
                                 pup.SetStatus(ps, limit, dd.type, dd.plate, conf.flowrate, -1);
                                 AddToLogList(MsgLogType.NewCard, reason, 0, plate, limit, cardtoauth);
-                                (MainPage.Document.GetElementById("Plate")).InnerHtml = plate;
+                                (MainPage.Document.GetElementById("Plate")).InnerHtml = "Welcome "+plate;
                                 if (type == "Money")
                                     (MainPage.Document.GetElementById("Limit")).InnerHtml = limit.ToString("0.00") + " " + conf.LimitPerMoneyText;
                                 else
@@ -780,6 +788,7 @@ namespace ForeFuelSimulator
                     if (conf.UseMSR)
                     {
                         SendTransactionComplete();
+                        
                     }
                     break;
                 case PumpStatus.Stopped:
@@ -854,6 +863,7 @@ namespace ForeFuelSimulator
                     if (conf.UseMSR)
                     {
                         SendTransactionComplete();
+            
                     }
                     break;
                 case PumpStatus.Stopped:
@@ -1082,6 +1092,7 @@ namespace ForeFuelSimulator
                     //clear plate & limits
                     MainPage.Document.GetElementById("Limit").InnerHtml = "";
                     MainPage.Document.GetElementById("Plate").InnerHtml = "";
+                    MainPage.Document.GetElementById("Discount").InnerHtml = "";
                 break;
                 case MsgLogType.CommErr:                
                     line = "Communication error with WGT.";

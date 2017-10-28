@@ -59,6 +59,7 @@ namespace ForeFuelSimulator
         public string Station1Code = "1";
         public string Station2Code = "2";
         public string Station3Code = "3";
+        public string Station4Code = "4";
 
         public Config()
         {
@@ -97,6 +98,7 @@ namespace ForeFuelSimulator
                     Station1Code = xDoc.SelectSingleNode("Configuration/General/Station1Code").InnerXml.ToString();
                     Station2Code = xDoc.SelectSingleNode("Configuration/General/Station2Code").InnerXml.ToString();
                     Station3Code = xDoc.SelectSingleNode("Configuration/General/Station3Code").InnerXml.ToString();
+                    Station4Code = xDoc.SelectSingleNode("Configuration/General/Station4Code").InnerXml.ToString();
 
                     LimitText = xDoc.SelectSingleNode("Configuration/General/LimitText").InnerXml.ToString();
                     PlateText = xDoc.SelectSingleNode("Configuration/General/PlateText").InnerXml.ToString();

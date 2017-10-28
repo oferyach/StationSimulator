@@ -39,6 +39,7 @@ namespace ForeFuelSimulator
                 AnimationPhase = 2;
                 AnimationTimer.Start();
                 WashPlayer.PlayLooping();
+                (MainPage.Document.GetElementById("Plate")).InnerHtml = "Welcome " + dd.plate;
             }
             else if (true)//CheckAuth(cardtoauth, ActiveNozz, ref limit, ref type, ref plate, ref reason))
             {
@@ -46,7 +47,7 @@ namespace ForeFuelSimulator
                 pup.ResetVol(conf.PumpAuthDelay);
                 pup.SetStatus(ps, dd.limit, dd.type, dd.plate, conf.flowrate, -1);
                 //AddToLogList(MsgLogType.Authorized, reason, 0, plate, limit, dd.cardnum);
-                (MainPage.Document.GetElementById("Plate")).InnerHtml = dd.plate;
+                (MainPage.Document.GetElementById("Plate")).InnerHtml = "Welcome "+dd.plate;
                 if (dd.type == "Money")
                     (MainPage.Document.GetElementById("Limit")).InnerHtml = dd.limit.ToString("0") + " " + conf.LimitPerMoneyText;
                 else
@@ -174,6 +175,7 @@ namespace ForeFuelSimulator
                     WashInProgress = true;
                     AnimationTimer.Start();
                     WashPlayer.PlayLooping();
+                    (MainPage.Document.GetElementById("Plate")).InnerHtml = "Welcome " + msg.DriverName;
                     return;
                 }
 
@@ -217,10 +219,16 @@ namespace ForeFuelSimulator
                             if (found)
                             {
                                 //check limit type
-                                if (itemfound.DiscountType =="%")
-                                    UpdatePPVPrecent(itemfound.Discount);                                        
+                                if (itemfound.DiscountType == "%")
+                                {
+                                    UpdatePPVPrecent(itemfound.Discount);
+                                    (MainPage.Document.GetElementById("Discount")).InnerHtml = "Discount " + itemfound.Discount.ToString("00")+"%";
+                                }
                                 else
-                                    UpdatePPVAbs(itemfound.Discount);    
+                                {
+                                    UpdatePPVAbs(itemfound.Discount);
+                                    (MainPage.Document.GetElementById("Discount")).InnerHtml = "Discount " + itemfound.Discount.ToString("00") + "c";
+                                }
 
                             }
                             
@@ -254,7 +262,7 @@ namespace ForeFuelSimulator
 
             try
             {
-
+                  
                 res = s.TransactionComplete(msr.lastReference, lastamount, lastvol, msr.ProductCode,DateTime.Now);
             }
 
