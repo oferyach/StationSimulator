@@ -40,6 +40,7 @@ namespace ForeFuelSimulator
                 AnimationTimer.Start();
                 WashPlayer.PlayLooping();
                 (MainPage.Document.GetElementById("Plate")).InnerHtml = "Welcome " + dd.plate;
+
             }
             else if (true)//CheckAuth(cardtoauth, ActiveNozz, ref limit, ref type, ref plate, ref reason))
             {
@@ -128,11 +129,17 @@ namespace ForeFuelSimulator
                 }
                 if (found)
                 {
-                    //check limit type
+                    //check  for discount
                     if (itemfound.DiscountType == "%")
+                    {
                         UpdatePPVPrecent(itemfound.Discount);
+                        (MainPage.Document.GetElementById("Discount")).InnerHtml = "Discount " + itemfound.Discount.ToString("00") + "%";
+                    }
                     else
+                    {
                         UpdatePPVAbs(itemfound.Discount);
+                        (MainPage.Document.GetElementById("Discount")).InnerHtml = "Discount " + itemfound.Discount.ToString("00") + "c";
+                    }
 
                 }
                 MSRTimer.Start();
@@ -176,6 +183,34 @@ namespace ForeFuelSimulator
                     AnimationTimer.Start();
                     WashPlayer.PlayLooping();
                     (MainPage.Document.GetElementById("Plate")).InnerHtml = "Welcome " + msg.DriverName;
+                    lastamount = 490;  //wash price
+                    lastvol = 0;
+                    bool found = false;
+                    MyProductItem itemfound = null;
+                    foreach (MyProductItem item in msg.ProductsList)
+                    {
+                        if (item.Code == ProductCode)
+                        {
+                            found = true;
+                            itemfound = item;
+                            break;
+                        }
+                    }
+                    if (found)
+                    {
+                        //check discount
+                        if (itemfound.DiscountType == "%")
+                        {
+                            lastamount = lastamount * (1 - itemfound.Discount/100); 
+                            (MainPage.Document.GetElementById("Discount")).InnerHtml = "Discount " + itemfound.Discount.ToString("00") + "%";
+                        }
+                        else
+                        {
+                            lastamount = lastamount - itemfound.Discount;                            
+                            (MainPage.Document.GetElementById("Discount")).InnerHtml = "Discount " + itemfound.Discount.ToString("00") + "c";
+                        }
+
+                    }
                     return;
                 }
 

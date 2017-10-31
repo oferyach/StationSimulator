@@ -133,18 +133,31 @@ namespace ForeFuelSimulator
                         myLog.Log("Got auth replay: " + res.Allowed.ToString() + ":" + res.DriverName+":"+res.ErrorDesc);
                         stat.ErrorDesc = res.ErrorDesc;
                         stat.carddata = c;
-                        stat.ProductsList = new List<MyProductItem>();
-                        foreach (ForeFuelSimulator.LoyaltyService.ProductItem item in res.ProductsList)
-                        {
-                            stat.ProductsList.Add(new MyProductItem(item.Code,item.Discount,item.DiscountType));    
-                        }                        
-                        stat.Reference = res.Reference;
-                        stat.CPassRequired = res.cPassRequired;                        
-                        stat.PINRequired = res.PINRequired;
-                        stat.PIN = res.PinCode;
+                                               
+                         try
+                         {
+                             stat.Reference = res.Reference;
+                             stat.CPassRequired = res.cPassRequired;
+                             stat.PINRequired = res.PINRequired;
+                             stat.PIN = res.PinCode;
+                             if (res.DriverName != null)
+                                 stat.DriverName = res.DriverName;
+                         }
+                         catch (Exception ex)
+                         {
+                             //ignor
+                         }
+                        
                         if (res.Allowed)
                         {
+                            //copy product locally
+                            stat.ProductsList = new List<MyProductItem>();
+                            foreach (ForeFuelSimulator.LoyaltyService.ProductItem item in res.ProductsList)
+                            {
+                                stat.ProductsList.Add(new MyProductItem(item.Code, item.Discount, item.DiscountType));
+                            } 
                             //check correct product
+
                             bool found = false;
                             foreach (MyProductItem item in stat.ProductsList)
                             {
@@ -164,12 +177,15 @@ namespace ForeFuelSimulator
                                 lastReference = res.Reference;
                             }
                             
+                            stat.Limit = res.Limit;
+                            stat.LimitType = res.LimitType;
+
+                            
+                            
                         }
                         else
                             stat.msg = MsgLogType.MSRReject;
-                        stat.DriverName = res.DriverName;
-                        stat.Limit = res.Limit;
-                        stat.LimitType = res.LimitType;
+                        
                         m_sender.BeginInvoke(m_senderDelegate, stat);
                      }
                  }

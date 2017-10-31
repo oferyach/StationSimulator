@@ -22,11 +22,11 @@
     <MetadataSource Address="http://localhost:49954/LoyaltyService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="LoyaltyService.disco" MetadataType="Disco" ID="64b3fa58-5946-457e-9c0e-b02f01b8f1de" SourceId="1" SourceUrl="http://localhost:49954/LoyaltyService.svc?disco" />
-    <MetadataFile FileName="LoyaltyService.xsd" MetadataType="Schema" ID="e8c37db9-3ec6-479e-8c7f-d0321ff6d606" SourceId="1" SourceUrl="http://localhost:49954/LoyaltyService.svc?xsd=xsd2" />
-    <MetadataFile FileName="LoyaltyService1.xsd" MetadataType="Schema" ID="0795a931-0b20-41c8-880d-d64d4308b075" SourceId="1" SourceUrl="http://localhost:49954/LoyaltyService.svc?xsd=xsd0" />
-    <MetadataFile FileName="LoyaltyService2.xsd" MetadataType="Schema" ID="c0179ac3-f53a-4a10-a385-f6654680c041" SourceId="1" SourceUrl="http://localhost:49954/LoyaltyService.svc?xsd=xsd1" />
-    <MetadataFile FileName="Service.wsdl" MetadataType="Wsdl" ID="f5bab79b-36f7-4143-bae5-8dc22d46c117" SourceId="1" SourceUrl="http://localhost:49954/LoyaltyService.svc?wsdl" />
+    <MetadataFile FileName="LoyaltyService.disco" MetadataType="Disco" ID="7185e71e-1640-4365-a5a2-9adfa158f5db" SourceId="1" SourceUrl="http://localhost:49954/LoyaltyService.svc?disco" />
+    <MetadataFile FileName="LoyaltyService.xsd" MetadataType="Schema" ID="2e65755d-ffdc-4664-b137-f7c16a115643" SourceId="1" SourceUrl="http://localhost:49954/LoyaltyService.svc?xsd=xsd2" />
+    <MetadataFile FileName="LoyaltyService1.xsd" MetadataType="Schema" ID="ec6c18ae-1502-4639-8e15-40a2c90ccc00" SourceId="1" SourceUrl="http://localhost:49954/LoyaltyService.svc?xsd=xsd0" />
+    <MetadataFile FileName="LoyaltyService2.xsd" MetadataType="Schema" ID="a88fad5c-a6c3-4a05-9bd0-c465b63f07da" SourceId="1" SourceUrl="http://localhost:49954/LoyaltyService.svc?xsd=xsd1" />
+    <MetadataFile FileName="Service.wsdl" MetadataType="Wsdl" ID="db685aab-b3e3-46ea-9e0d-37faeffd5c5f" SourceId="1" SourceUrl="http://localhost:49954/LoyaltyService.svc?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

@@ -147,15 +147,6 @@
     <None Include="Service References\LoyaltyService\ForeFuelSimulator.LoyaltyService.TransactionCompleteResult.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\LoyaltyService\LoyaltyService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\LoyaltyService\LoyaltyService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\LoyaltyService\LoyaltyService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\LoyaltyService\Service.wsdl" />
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +155,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\LoyaltyService\LoyaltyService.disco" />
     <None Include="bin\Debug\BKG.png" />
     <Content Include="bin\Debug\0004.01.png" />
     <Content Include="bin\Debug\0005.37.png" />
@@ -287,13 +279,21 @@
     <Content Include="bin\Debug\WebControlTest.pdb" />
     <Content Include="bin\Debug\WebControlTest.vshost.exe" />
     <Content Include="ForeFuel.ico" />
+    <None Include="Service References\LoyaltyService\LoyaltyService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LoyaltyService\LoyaltyService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\LoyaltyService\LoyaltyService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\LoyaltyService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Service References\LoyaltyService\configuration.svcinfo" />
     <None Include="Service References\LoyaltyService\configuration91.svcinfo" />
-    <None Include="Service References\LoyaltyService\LoyaltyService.disco" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">

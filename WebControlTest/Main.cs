@@ -380,8 +380,13 @@ namespace ForeFuelSimulator
 
                 a = MainPage.Document.GetElementById("FuelPrice1");
                 a.InnerHtml = conf.PPV1.ToString("0.00");
+                a = MainPage.Document.GetElementById("FuelPrice1Org");
+                a.InnerHtml = conf.PPV1.ToString("0.00");
 
                 a = MainPage.Document.GetElementById("FuelPrice2");
+                a.InnerHtml = conf.PPV2.ToString("0.00");
+
+                a = MainPage.Document.GetElementById("FuelPrice2Org");
                 a.InnerHtml = conf.PPV2.ToString("0.00");
 
 
@@ -445,16 +450,16 @@ namespace ForeFuelSimulator
                     
                     break;
                 case 3:
-                    a.SetAttribute("src", "Washing3.png");
+                    //a.SetAttribute("src", "Washing3.png");
                    
 
                     break;
                 case 4:
-                    a.SetAttribute("src", "Washing4.png");
+                    //a.SetAttribute("src", "Washing4.png");
                     
                     break;
                 case 5:
-                    a.SetAttribute("src", "Washing5.png");
+                    //a.SetAttribute("src", "Washing5.png");
                     
                     break;
                 case 6:
@@ -480,8 +485,11 @@ namespace ForeFuelSimulator
                     b.InnerHtml = "00'";
                     WashPlayer.Stop();
                     WashInProgress = false;
+                    
                     SendTransactionComplete();
                     AddToLogList(MsgLogType.TransEnded, "", 1, "", 0, "");  
+                    ProductCode = 0;
+                    msr.SetInfo(SelectedStation, ProductCode);
                     break;
 
             }
@@ -777,10 +785,7 @@ namespace ForeFuelSimulator
                     a.SetAttribute("src", "NozzDn.png");                    
                     AddToLogList(MsgLogType.TransEnded, "", 1, "", 0, "");                            
                     ps = PumpStatus.Idle;
-                    ProductCode = 0;
-                    msr.SetInfo(SelectedStation, ProductCode);
-                    MobileRes = "None";
-                    CPassTry = 0;
+                    
                     
                     pup.SetStatus(ps, 0);
                     if (dd.bCPass)
@@ -790,6 +795,12 @@ namespace ForeFuelSimulator
                         SendTransactionComplete();
                         
                     }
+                    ProductCode = 0;
+                    msr.SetInfo(SelectedStation, ProductCode);
+                    MobileRes = "None";
+                    CPassTry = 0;
+                    
+                    pup.SetStatus(ps, 0);
                     break;
                 case PumpStatus.Stopped:
                     a.SetAttribute("src", "NozzDn.png");                    
